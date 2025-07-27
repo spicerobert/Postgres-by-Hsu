@@ -16,6 +16,7 @@ from taiwan_railway_gui.services.async_manager import get_async_manager
 from taiwan_railway_gui.services.cache_manager import get_cache_manager
 from taiwan_railway_gui.utils.memory_manager import get_memory_manager, start_memory_monitoring, stop_memory_monitoring
 from taiwan_railway_gui.gui.user_feedback import create_user_feedback_manager
+from taiwan_railway_gui.gui.visual_feedback import IndicatorType, StatusIndicator
 
 
 class LoadingIndicator:
@@ -97,42 +98,107 @@ class StatusBar:
         Args:
             parent: 父元件
         """
+        from taiwan_railway_gui.gui.styles import get_style_manager
+
         self.parent = parent
+        self.style_manager = get_style_manager()
 
-        # 建立狀態列框架
-        self.frame = ttk.Frame(parent, relief=tk.SUNKEN, borderwidth=1)
+        # 建立主要框架
+        self.frame = ttk.Frame(parent, style='Section.TFrame')
 
-        # 建立載入指示器
-        self.loading_indicator = LoadingIndicator(self.frame)
-        self.loading_indicator.pack(fill=tk.X, padx=5, pady=2)
+        # 建立狀態指示器
+        self.status_indicator = StatusIndicator(self.frame)
 
-        # 建立資料庫連線狀態
-        self.db_status_var = tk.StringVar(value="資料庫: 未連線")
-        self.db_status_label = ttk.Label(
-            self.frame,
-            textvariable=self.db_status_var,
-            font=get_config('fonts')['body']
-        )
-        self.db_status_label.pack(side=tk.RIGHT, padx=5)
+        # 建立訊息標籤
+        theme = self.style_manager.get_theme()
+        colors = theme['colors']
+        fonts = theme['fonts']
 
-    def set_message(self, message: str):
-        """設定狀態訊息"""
-        self.loading_indicator.status_var.set(message)
+        self.message_var = tk.StringVar(value="就緒")
+        self.message_label = tk.Label(self.frame,
+                                    textvariable=self.message_var,
+                                    foreground=colors['text'],
+                                    background=colors['background'],
+                                    font=fonts['small'])
+
+        # 建立資料庫狀態指示器
+        self.db_status_var = tk.StringVar(value="未連線")
+        self.db_status_label = tk.Label(self.frame,
+                                      textvariable=self.db_status_var,
+                                      foreground=colors['text_muted'],
+                                      background=colors['background'],
+                                      font=fonts['small'])
+
+        # 建立時間標籤
+        self.time_var = tk.StringVar()
+        self.time_label = tk.Label(self.frame,
+                                 textvariable=self.time_var,
+                                 foreground=colors['text_muted'],
+                                 background=colors['background'],
+                                 font=fonts['small'])
+
+        # 佈局
+        self.status_indicator.pack(side=tk.LEFT, padx=5)
+        self.message_label.pack(side=tk.LEFT, padx=10)
+        self.time_label.pack(side=tk.RIGHT, padx=5)
+        self.db_status_label.pack(side=tk.RIGHT, padx=10)
+
+        # 開始時間更新
+        self._update_time()
+
+        # 設定初始狀態
+        self.set_message("就緒")
+
+    def set_message(self, message: str, status_type: str = "info"):
+        """
+        設定狀態訊息
+
+        Args:
+            message: 狀態訊息
+            status_type: 狀態類型 ('info', 'success', 'warning', 'error', 'loading')
+        """
+        self.message_var.set(message)
+
+        # 設定狀態指示器
+        status_map = {
+            'info': IndicatorType.INFO,
+            'success': IndicatorType.SUCCESS,
+            'warning': IndicatorType.WARNING,
+            'error': IndicatorType.ERROR,
+            'loading': IndicatorType.LOADING,
+            'ready': IndicatorType.READY
+        }
+
+        indicator_type = status_map.get(status_type, IndicatorType.INFO)
+        self.status_indicator.set_status(indicator_type, message)
 
     def set_database_status(self, connected: bool):
         """設定資料庫連線狀態"""
         if connected:
-            self.db_status_var.set("資料庫: 已連線")
+            self.db_status_var.set("資料庫已連線")
+            theme = self.style_manager.get_theme()
+            self.db_status_label.configure(foreground=theme['colors']['success'])
         else:
-            self.db_status_var.set("資料庫: 未連線")
+            self.db_status_var.set("資料庫未連線")
+            theme = self.style_manager.get_theme()
+            self.db_status_label.configure(foreground=theme['colors']['error'])
 
     def start_loading(self, message: str = "載入中..."):
         """開始載入"""
-        self.loading_indicator.start(message)
+        self.set_message(message, "loading")
 
     def stop_loading(self, message: str = "就緒"):
         """停止載入"""
-        self.loading_indicator.stop(message)
+        self.set_message(message, "ready")
+
+    def _update_time(self):
+        """更新時間顯示"""
+        import datetime
+        current_time = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+        self.time_var.set(current_time)
+
+        # 每秒更新一次
+        self.parent.after(1000, self._update_time)
 
     def pack(self, **kwargs):
         """打包狀態列"""
@@ -288,14 +354,22 @@ class MainWindow:
         """設定 ttk 樣式"""
         from taiwan_railway_gui.gui.styles import get_style_manager
         from taiwan_railway_gui.gui.accessibility import get_keyboard_navigation_manager, get_accessibility_helper
+        from taiwan_railway_gui.gui.visual_feedback import get_visual_feedback_manager
+        from taiwan_railway_gui.gui.platform_consistency import apply_platform_consistency
 
         # 初始化樣式管理器
         self.style_manager = get_style_manager()
         self.style_manager.configure_ttk_styles(self.style)
 
+        # 套用跨平台一致性
+        apply_platform_consistency(self.root, self.style)
+
         # 初始化無障礙功能
         self.keyboard_nav = get_keyboard_navigation_manager(self.root)
         self.accessibility = get_accessibility_helper()
+
+        # 初始化視覺回饋系統
+        self.visual_feedback = get_visual_feedback_manager(self.root)
 
         # 設定視窗樣式
         theme = self.style_manager.get_theme()
@@ -303,8 +377,23 @@ class MainWindow:
 
         self.root.configure(bg=colors['background'])
 
+        # 應用自訂樣式到視窗元件
+        self._apply_window_styling()
+
         # 註冊自訂快捷鍵
         self.setup_custom_shortcuts()
+
+    def _apply_window_styling(self):
+        """應用視窗樣式"""
+        theme = self.style_manager.get_theme()
+        colors = theme['colors']
+        spacing = theme['spacing']
+
+        # 設定視窗背景色
+        self.root.configure(bg=colors['background'])
+
+        # 為視窗添加焦點指示器
+        self.style_manager.create_focus_effect(self.root)
 
     def setup_custom_shortcuts(self):
         """設定自訂快捷鍵"""

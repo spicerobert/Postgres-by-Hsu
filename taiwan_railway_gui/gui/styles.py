@@ -231,7 +231,8 @@ class StyleManager:
                            ('pressed', colors['primary_dark']),
                            ('disabled', colors['disabled'])])
 
-        style.configure('Secondary.TBu                   font=fonts['button'],
+        style.configure('Secondary.TButton',
+                       font=fonts['button'],
                        foreground=colors['text'],
                        background=colors['secondary'],
                        borderwidth=1,
@@ -539,17 +540,99 @@ class StyleManager:
         theme = self.get_theme()
         colors = theme['colors']
 
-        hover_color = hover_color or colors['hover']
-        normal_color = normal_color or colors['background']
+        # 如果沒有指定顏色，使用預設值
+        if hover_color is None:
+            hover_color = colors.get('hover', colors['secondary'])
+        if normal_color is None:
+            normal_color = colors.get('background', '#FFFFFF')
+
+        original_bg = widget.cget('background') if hasattr(widget, 'cget') else normal_color
 
         def on_enter(event):
-            widget.configure(background=hover_color)
+            try:
+                widget.configure(background=hover_color)
+                # 添加光標變化
+                widget.configure(cursor='hand2')
+            except tk.TclError:
+                pass
 
         def on_leave(event):
-            widget.configure(background=normal_color)
+            try:
+                widget.configure(background=original_bg)
+                widget.configure(cursor='')
+            except tk.TclError:
+                pass
 
         widget.bind('<Enter>', on_enter)
         widget.bind('<Leave>', on_leave)
+
+    def create_button_animation(self, button: tk.Widget):
+        """為按鈕添加點擊動畫效果"""
+        theme = self.get_theme()
+        colors = theme['colors']
+
+        original_relief = button.cget('relief') if hasattr(button, 'cget') else 'raised'
+
+        def on_button_press(event):
+            try:
+                button.configure(relief='sunken')
+                # 短暫延遲後恢復
+                button.after(100, lambda: button.configure(relief=original_relief))
+            except tk.TclError:
+                pass
+
+        button.bind('<Button-1>', on_button_press)
+
+    def apply_card_style(self, widget: tk.Widget, elevated: bool = False):
+        """套用卡片樣式"""
+        theme = self.get_theme()
+        colors = theme['colors']
+        spacing = theme['spacing']
+
+        if elevated:
+            # 高度較高的卡片樣式（有陰影效果）
+            widget.configure(
+                background=colors['background'],
+                borderwidth=2,
+                relief='raised',
+                padx=spacing['md'],
+                pady=spacing['md']
+            )
+        else:
+            # 扁平卡片樣式
+            widget.configure(
+                background=colors['background'],
+                borderwidth=1,
+                relief='solid',
+                padx=spacing['sm'],
+                pady=spacing['sm']
+            )
+
+    def create_loading_indicator_style(self, widget: tk.Widget):
+        """創建載入指示器樣式"""
+        theme = self.get_theme()
+        colors = theme['colors']
+
+        widget.configure(
+            foreground=colors['primary'],
+            background=colors['background']
+        )
+
+    def apply_status_style(self, widget: tk.Widget, status: str):
+        """套用狀態樣式"""
+        theme = self.get_theme()
+        colors = theme['colors']
+
+        status_colors = {
+            'success': colors['success'],
+            'warning': colors['warning'],
+            'error': colors['error'],
+            'info': colors['info'],
+            'default': colors['text']
+        }
+
+        color = status_colors.get(status, status_colors['default'])
+        widget.configure(foreground=color)
 
     def create_focus_effect(self, widget: tk.Widget):
         """為元件添加焦點效果"""

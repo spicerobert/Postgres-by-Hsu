@@ -15,6 +15,7 @@ from taiwan_railway_gui.services.validation import create_validation_service
 from taiwan_railway_gui.services.error_handler import get_error_handler, ErrorCategory, ErrorSeverity
 from taiwan_railway_gui.gui.styles import get_style_manager
 from taiwan_railway_gui.gui.accessibility import get_accessibility_helper
+from taiwan_railway_gui.gui.visual_feedback import get_visual_feedback_manager, IndicatorType
 
 
 class BaseTab(ABC):
@@ -51,14 +52,35 @@ class BaseTab(ABC):
         self.style_manager = get_style_manager()
         self.accessibility = get_accessibility_helper()
 
+        # 初始化視覺回饋管理器
+        if main_window and hasattr(main_window, 'root'):
+            self.visual_feedback = get_visual_feedback_manager(main_window.root)
+        else:
+            self.visual_feedback = get_visual_feedback_manager(parent)
+
         # 建立主框架
         self.frame = ttk.Frame(parent)
         self.frame.pack(fill=tk.BOTH, expand=True)
+
+        # 應用一致的樣式
+        self._apply_consistent_styling()
 
         # 初始化 UI
         self.setup_ui()
 
         self.logger.info(f"{self.__class__.__name__} 初始化完成")
+
+    def _apply_consistent_styling(self):
+        """應用一致的樣式"""
+        theme = self.style_manager.get_theme()
+        colors = theme['colors']
+
+        # 設定框架樣式
+        self.style_manager.apply_widget_style(self.frame, 'card')
+
+        # 如果有主視窗，則同步樣式設定
+        if self.main_window and hasattr(self.main_window, 'style_manager'):
+            self.style_manager = self.main_window.style_manager
 
     @abstractmethod
     def setup_ui(self):
@@ -623,3 +645,124 @@ class BaseTab(ABC):
     def get_frame(self) -> ttk.Frame:
         """取得分頁框架"""
         return self.frame
+
+    def show_loading(self, message: str = "載入中..."):
+        """顯示載入狀態"""
+        if hasattr(self, 'visual_feedback') and self.visual_feedback:
+            self.visual_feedback.show_loading(message)
+
+        # 同時更新主視窗狀態列
+        if self.main_window and hasattr(self.main_window, 'status_bar'):
+            self.main_window.status_bar.start_loading(message)
+
+    def hide_loading(self, success_message: str = "完成"):
+        """隱藏載入狀態"""
+        if hasattr(self, 'visual_feedback') and self.visual_feedback:
+            self.visual_feedback.hide_loading(success_message)
+
+        # 同時更新主視窗狀態列
+        if self.main_window and hasattr(self.main_window, 'status_bar'):
+            self.main_window.status_bar.stop_loading(success_message)
+
+    def show_success_feedback(self, message: str):
+        """顯示成功回饋"""
+        if hasattr(self, 'visual_feedback') and self.visual_feedback:
+            self.visual_feedback.show_success(message)
+
+        # 同時更新主視窗狀態列
+        if self.main_window and hasattr(self.main_window, 'status_bar'):
+            self.main_window.status_bar.set_message(message, "success")
+
+    def show_error_feedback(self, message: str):
+        """顯示錯誤回饋"""
+        if hasattr(self, 'visual_feedback') and self.visual_feedback:
+            self.visual_feedback.show_error(message)
+
+        # 同時更新主視窗狀態列
+        if self.main_window and hasattr(self.main_window, 'status_bar'):
+            self.main_window.status_bar.set_message(message, "error")
+
+    def show_warning_feedback(self, message: str):
+        """顯示警告回饋"""
+        if hasattr(self, 'visual_feedback') and self.visual_feedback:
+            self.visual_feedback.show_warning(message)
+
+        # 同時更新主視窗狀態列
+        if self.main_window and hasattr(self.main_window, 'status_bar'):
+            self.main_window.status_bar.set_message(message, "warning")
+
+    def create_enhanced_button(self, parent: tk.Widget, text: str, command: Callable,
+                             style: str = 'Primary.TButton', width: Optional[int] = None,
+                             tooltip: str = None) -> ttk.Button:
+        """
+        建立增強的按鈕（包含動畫和回饋效果）
+
+        Args:
+            parent: 父元件
+            text: 按鈕文字
+            command: 點擊回調
+            style: 按鈕樣式
+            width: 按鈕寬度
+            tooltip: 工具提示
+
+        Returns:
+            增強的按鈕
+        """
+        button = self.create_styled_button(parent, text, command, style, width)
+
+        # 添加動畫效果
+        self.style_manager.create_button_animation(button)
+
+        # 添加工具提示
+        if tooltip:
+            self.accessibility.create_accessible_tooltip(button, tooltip)
+
+        return button
+
+    def create_status_frame(self, parent: tk.Widget) -> ttk.Frame:
+        """
+        建立狀態框架（包含狀態指示器）
+
+        Args:
+            parent: 父元件
+
+        Returns:
+            狀態框架
+        """
+        frame = ttk.Frame(parent, style='Section.TFrame')
+
+        # 建立狀態指示器
+        from taiwan_railway_gui.gui.visual_feedback import StatusIndicator
+        self.status_indicator = StatusIndicator(frame)
+        self.status_indicator.pack(side=tk.LEFT, padx=5, pady=5)
+
+        return frame
+
+    def apply_focus_ring(self, widgets: list):
+        """
+        為一組元件設定焦點環
+
+        Args:
+            widgets: 元件清單
+        """
+        if self.main_window and hasattr(self.main_window, 'keyboard_nav'):
+            for i, widget in enumerate(widgets):
+                self.main_window.keyboard_nav.add_to_focus_ring(widget, priority=i)
+
+    def create_animated_separator(self, parent: tk.Widget) -> ttk.Separator:
+        """
+        建立動畫分隔線
+
+        Args:
+            parent: 父元件
+
+        Returns:
+            分隔線
+        """
+        separator = ttk.Separator(parent, orient=tk.HORIZONTAL)
+
+        # 添加淡入動畫效果
+        from taiwan_railway_gui.gui.visual_feedback import AnimationHelper
+        AnimationHelper.fade_in(separator)
+
+        return separator
