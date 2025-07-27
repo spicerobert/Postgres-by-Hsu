@@ -27,3 +27,15 @@ https://www.youtube.com/watch?v=EQR0tc-FDKQ
 ## 2025_07_13_下午
 https://www.youtube.com/watch?v=64nNXKW4NTo
 
+---
+
+## 2025_07_27_上午
+https://www.youtube.com/watch?v=Ms_NX3M--vg
+
+## 2025_07_27_下午
+https://www.youtube.com/watch?v=Qu5ktIfWONg
+
+
+
+
+

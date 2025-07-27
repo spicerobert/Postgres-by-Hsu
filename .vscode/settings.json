@@ -1,14 +1,12 @@
 {
     "chat.mcp.discovery.enabled": true,
-
     // --- Suggested Settings for better code quality ---
-
     // Automatically save files after a delay.
     "files.autoSave": "afterDelay",
-
     // Format a file on save. A default formatter must be available.
     "editor.formatOnSave": true,
-
     // Trim trailing whitespace when saving a file.
-    "files.trimTrailingWhitespace": true
+    "files.trimTrailingWhitespace": true,
+    // GitHub Copilot settings
+   
 }
