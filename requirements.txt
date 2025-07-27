@@ -1,0 +1,24 @@
+# 台鐵車站資訊查詢 GUI 應用程式依賴套件
+
+# 資料庫連線
+psycopg2-binary>=2.9.0
+
+# 圖表和視覺化
+matplotlib>=3.5.0
+
+# 資料處理
+pandas>=1.3.0
+
+# 日期處理
+python-dateutil>=2.8.0
+
+# 測試框架
+pytest>=6.0.0
+pytest-cov>=2.12.0
+
+# 程式碼品質
+flake8>=4.0.0
+black>=22.0.0
+
+# 型別檢查
+mypy>=0.910
