@@ -1,0 +1,16 @@
+{
+  "mcpServers": {
+    "vscode_postgres": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "@modelcontextprotocol/server-postgres",
+        "postgresql://postgres:raspberry@localhost:5432/postgres"
+      ],
+      "disabled": false,
+      "autoApprove": [
+        "query"
+      ]
+    }
+  }
+}
