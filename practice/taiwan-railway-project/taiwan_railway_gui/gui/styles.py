@@ -659,19 +659,80 @@ class StyleManager:
         theme = self.get_theme()
         colors = theme['colors']
 
-        original_relief = widget.cget('relief')
-        original_borderwidth = widget.cget('borderwidth')
+        # 檢查是否為 ttk 元件
+        widget_class = widget.__class__.__name__
+        is_ttk_widget = 'ttk' in str(widget.__class__.__module__)
 
-        def on_focus_in(event):
-            widget.configure(relief='solid', borderwidth=2,
-                           highlightbackground=colors['focus'])
+        if is_ttk_widget:
+            # 對於 ttk 元件，使用樣式系統
+            try:
+                style_name = f"Focus.{widget_class}"
 
-        def on_focus_out(event):
-            widget.configure(relief=original_relief,
-                           borderwidth=original_borderwidth)
+                def on_focus_in_ttk(event):
+                    # 為 ttk 元件設定焦點樣式
+                    try:
+                        # 嘗試使用 ttk 樣式系統
+                        style = ttk.Style()
+                        style.configure(style_name,
+                                      focuscolor=colors['focus'],
+                                      borderwidth=2)
+                        widget.configure(style=style_name)
+                    except Exception:
+                        pass
 
-        widget.bind('<FocusIn>', on_focus_in)
-        widget.bind('<FocusOut>', on_focus_out)
+                def on_focus_out_ttk(event):
+                    try:
+                        # 恢復原始樣式
+                        widget.configure(style=f"TEntry")  # 預設樣式
+                    except Exception:
+                        pass
+
+                widget.bind('<FocusIn>', on_focus_in_ttk)
+                widget.bind('<FocusOut>', on_focus_out_ttk)
+
+            except Exception:
+                # 如果 ttk 樣式設定失敗，靜默忽略
+                pass
+        else:
+            # 對於傳統 tkinter 元件
+            try:
+                original_relief = widget.cget('relief')
+                original_borderwidth = widget.cget('borderwidth')
+
+                def on_focus_in(event):
+                    widget.configure(relief='solid', borderwidth=2,
+                                   highlightbackground=colors['focus'])
+
+                def on_focus_out(event):
+                    widget.configure(relief=original_relief,
+                                   borderwidth=original_borderwidth)
+
+                widget.bind('<FocusIn>', on_focus_in)
+                widget.bind('<FocusOut>', on_focus_out)
+
+            except tk.TclError:
+                # 如果元件不支援這些屬性，使用簡單的顏色變化
+                try:
+                    def on_focus_in_simple(event):
+                        if hasattr(widget, 'configure'):
+                            try:
+                                widget.configure(highlightbackground=colors['focus'])
+                            except tk.TclError:
+                                pass
+
+                    def on_focus_out_simple(event):
+                        if hasattr(widget, 'configure'):
+                            try:
+                                widget.configure(highlightbackground=colors['background'])
+                            except tk.TclError:
+                                pass
+
+                    widget.bind('<FocusIn>', on_focus_in_simple)
+                    widget.bind('<FocusOut>', on_focus_out_simple)
+
+                except Exception:
+                    # 如果所有方法都失敗，則靜默忽略
+                    pass
 
     def get_icon_font(self) -> Tuple[str, int]:
         """取得圖示字體（如果可用）"""

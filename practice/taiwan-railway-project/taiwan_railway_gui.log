@@ -1,0 +1,126 @@
+2025-07-28 23:42:12,703 - __main__ - INFO - ==================================================
+2025-07-28 23:42:12,703 - __main__ - INFO - 啟動台鐵車站資訊查詢 GUI 應用程式
+2025-07-28 23:42:12,703 - __main__ - INFO - ==================================================
+2025-07-28 23:42:12,703 - __main__ - INFO - 檢查 Python 版本...
+2025-07-28 23:42:12,703 - __main__ - INFO - Python 版本檢查通過: 3.10.11 (main, May 17 2023, 14:30:36) [Clang 14.0.6 ]
+2025-07-28 23:42:12,703 - __main__ - INFO - 檢查必要套件...
+2025-07-28 23:42:12,703 - root - ERROR - 缺少必要的套件: psycopg2 (PostgreSQL 連接器), matplotlib (圖表繪製套件)
+2025-07-28 23:42:12,703 - __main__ - INFO - 應用程式結束
+2025-07-28 23:43:21,482 - __main__ - INFO - ==================================================
+2025-07-28 23:43:21,482 - __main__ - INFO - 啟動台鐵車站資訊查詢 GUI 應用程式
+2025-07-28 23:43:21,482 - __main__ - INFO - ==================================================
+2025-07-28 23:43:21,482 - __main__ - INFO - 檢查 Python 版本...
+2025-07-28 23:43:21,482 - __main__ - INFO - Python 版本檢查通過: 3.9.23 (main, Jun  5 2025, 08:49:36) 
+[Clang 14.0.6 ]
+2025-07-28 23:43:21,483 - __main__ - INFO - 檢查必要套件...
+2025-07-28 23:43:21,483 - __main__ - INFO - 套件相依性檢查通過
+2025-07-28 23:43:21,483 - __main__ - INFO - 載入應用程式配置...
+2025-07-28 23:43:21,483 - __main__ - INFO - GUI 配置載入完成: {'window_title': '台鐵車站資訊查詢系統', 'window_size': '1200x800', 'min_window_size': (800, 600), 'max_window_size': (1920, 1080), 'theme': 'default', 'resizable': True, 'center_on_startup': True, 'tab_animation': False, 'tooltip_delay': 500}
+2025-07-28 23:43:21,483 - __main__ - INFO - 匯入主視窗模組...
+2025-07-28 23:43:21,650 - __main__ - INFO - 建立主視窗實例...
+2025-07-28 23:43:21,769 - __main__ - ERROR - 應用程式啟動失敗: unknown option "-relief"
+Traceback (most recent call last):
+  File "/Users/roberthsu2003/Documents/GitHub/__2025_06_29_chihlee_postgres__/practice/taiwan-railway-project/main.py", line 190, in main
+    app = create_main_window()
+  File "/Users/roberthsu2003/Documents/GitHub/__2025_06_29_chihlee_postgres__/practice/taiwan-railway-project/taiwan_railway_gui/gui/main_window.py", line 1205, in create_main_window
+    return MainWindow()
+  File "/Users/roberthsu2003/Documents/GitHub/__2025_06_29_chihlee_postgres__/practice/taiwan-railway-project/taiwan_railway_gui/gui/main_window.py", line 233, in __init__
+    self.setup_main_content()
+  File "/Users/roberthsu2003/Documents/GitHub/__2025_06_29_chihlee_postgres__/practice/taiwan-railway-project/taiwan_railway_gui/gui/main_window.py", line 476, in setup_main_content
+    self.create_placeholder_tabs()
+  File "/Users/roberthsu2003/Documents/GitHub/__2025_06_29_chihlee_postgres__/practice/taiwan-railway-project/taiwan_railway_gui/gui/main_window.py", line 484, in create_placeholder_tabs
+    self.create_station_search_tab()
+  File "/Users/roberthsu2003/Documents/GitHub/__2025_06_29_chihlee_postgres__/practice/taiwan-railway-project/taiwan_railway_gui/gui/main_window.py", line 503, in create_station_search_tab
+    station_search_tab = create_station_search_tab(tab_frame, self)
+  File "/Users/roberthsu2003/Documents/GitHub/__2025_06_29_chihlee_postgres__/practice/taiwan-railway-project/taiwan_railway_gui/gui/station_search_tab.py", line 434, in create_station_search_tab
+    return StationSearchTab(parent, main_window)
+  File "/Users/roberthsu2003/Documents/GitHub/__2025_06_29_chihlee_postgres__/practice/taiwan-railway-project/taiwan_railway_gui/gui/station_search_tab.py", line 42, in __init__
+    super().__init__(parent, main_window)
+  File "/Users/roberthsu2003/Documents/GitHub/__2025_06_29_chihlee_postgres__/practice/taiwan-railway-project/taiwan_railway_gui/gui/base_tab.py", line 69, in __init__
+    self.setup_ui()
+  File "/Users/roberthsu2003/Documents/GitHub/__2025_06_29_chihlee_postgres__/practice/taiwan-railway-project/taiwan_railway_gui/gui/station_search_tab.py", line 47, in setup_ui
+    self.create_search_section()
+  File "/Users/roberthsu2003/Documents/GitHub/__2025_06_29_chihlee_postgres__/practice/taiwan-railway-project/taiwan_railway_gui/gui/station_search_tab.py", line 63, in create_search_section
+    self.search_label, self.search_entry = self.create_labeled_entry(
+  File "/Users/roberthsu2003/Documents/GitHub/__2025_06_29_chihlee_postgres__/practice/taiwan-railway-project/taiwan_railway_gui/gui/base_tab.py", line 191, in create_labeled_entry
+    self.style_manager.create_focus_effect(entry)
+  File "/Users/roberthsu2003/Documents/GitHub/__2025_06_29_chihlee_postgres__/practice/taiwan-railway-project/taiwan_railway_gui/gui/styles.py", line 662, in create_focus_effect
+    original_relief = widget.cget('relief')
+  File "/opt/miniconda3/envs/taiwan_railway/lib/python3.9/tkinter/__init__.py", line 1652, in cget
+    return self.tk.call(self._w, 'cget', '-' + key)
+_tkinter.TclError: unknown option "-relief"
+2025-07-28 23:43:21,770 - __main__ - INFO - 應用程式結束
+2025-07-28 23:48:08,296 - __main__ - INFO - ==================================================
+2025-07-28 23:48:08,296 - __main__ - INFO - 啟動台鐵車站資訊查詢 GUI 應用程式
+2025-07-28 23:48:08,296 - __main__ - INFO - ==================================================
+2025-07-28 23:48:08,296 - __main__ - INFO - 檢查 Python 版本...
+2025-07-28 23:48:08,296 - __main__ - INFO - Python 版本檢查通過: 3.9.6 (default, Apr 30 2025, 02:07:17) 
+[Clang 17.0.0 (clang-1700.0.13.5)]
+2025-07-28 23:48:08,296 - __main__ - INFO - 檢查必要套件...
+2025-07-28 23:48:08,296 - root - ERROR - 缺少必要的套件: psycopg2 (PostgreSQL 連接器), matplotlib (圖表繪製套件)
+2025-07-28 23:48:08,296 - __main__ - INFO - 應用程式結束
+2025-07-28 23:48:58,588 - __main__ - INFO - ==================================================
+2025-07-28 23:48:58,588 - __main__ - INFO - 啟動台鐵車站資訊查詢 GUI 應用程式
+2025-07-28 23:48:58,588 - __main__ - INFO - ==================================================
+2025-07-28 23:48:58,588 - __main__ - INFO - 檢查 Python 版本...
+2025-07-28 23:48:58,588 - __main__ - INFO - Python 版本檢查通過: 3.9.6 (default, Apr 30 2025, 02:07:17) 
+[Clang 17.0.0 (clang-1700.0.13.5)]
+2025-07-28 23:48:58,588 - __main__ - INFO - 檢查必要套件...
+2025-07-28 23:48:58,588 - __main__ - INFO - 套件相依性檢查通過（已跳過）
+2025-07-28 23:48:58,588 - __main__ - INFO - 載入應用程式配置...
+2025-07-28 23:48:58,588 - __main__ - INFO - GUI 配置載入完成: {'window_title': '台鐵車站資訊查詢系統', 'window_size': '1200x800', 'min_window_size': (800, 600), 'max_window_size': (1920, 1080), 'theme': 'default', 'resizable': True, 'center_on_startup': True, 'tab_animation': False, 'tooltip_delay': 500}
+2025-07-28 23:48:58,588 - __main__ - INFO - 匯入主視窗模組...
+2025-07-28 23:48:58,618 - __main__ - ERROR - 應用程式啟動失敗: No module named 'psutil'
+Traceback (most recent call last):
+  File "/Users/roberthsu2003/Documents/GitHub/__2025_06_29_chihlee_postgres__/practice/taiwan-railway-project/main.py", line 188, in main
+    from taiwan_railway_gui.gui.main_window import create_main_window
+  File "/Users/roberthsu2003/Documents/GitHub/__2025_06_29_chihlee_postgres__/practice/taiwan-railway-project/taiwan_railway_gui/gui/__init__.py", line 17, in <module>
+    from .main_window import MainWindow, create_main_window
+  File "/Users/roberthsu2003/Documents/GitHub/__2025_06_29_chihlee_postgres__/practice/taiwan-railway-project/taiwan_railway_gui/gui/main_window.py", line 17, in <module>
+    from taiwan_railway_gui.utils.memory_manager import get_memory_manager, start_memory_monitoring, stop_memory_monitoring
+  File "/Users/roberthsu2003/Documents/GitHub/__2025_06_29_chihlee_postgres__/practice/taiwan-railway-project/taiwan_railway_gui/utils/memory_manager.py", line 9, in <module>
+    import psutil
+ModuleNotFoundError: No module named 'psutil'
+2025-07-28 23:48:58,619 - __main__ - INFO - 應用程式結束
+2025-07-28 23:55:11,678 - __main__ - INFO - ==================================================
+2025-07-28 23:55:11,678 - __main__ - INFO - 啟動台鐵車站資訊查詢 GUI 應用程式
+2025-07-28 23:55:11,678 - __main__ - INFO - ==================================================
+2025-07-28 23:55:11,678 - __main__ - INFO - 檢查 Python 版本...
+2025-07-28 23:55:11,678 - __main__ - INFO - Python 版本檢查通過: 3.9.23 (main, Jun  5 2025, 08:49:36) 
+[Clang 14.0.6 ]
+2025-07-28 23:55:11,678 - __main__ - INFO - 檢查必要套件...
+2025-07-28 23:55:11,678 - __main__ - INFO - 套件相依性檢查通過
+2025-07-28 23:55:11,678 - __main__ - INFO - 載入應用程式配置...
+2025-07-28 23:55:11,678 - __main__ - INFO - GUI 配置載入完成: {'window_title': '台鐵車站資訊查詢系統', 'window_size': '1200x800', 'min_window_size': (800, 600), 'max_window_size': (1920, 1080), 'theme': 'default', 'resizable': True, 'center_on_startup': True, 'tab_animation': False, 'tooltip_delay': 500}
+2025-07-28 23:55:11,678 - __main__ - INFO - 匯入主視窗模組...
+2025-07-28 23:55:11,822 - __main__ - INFO - 建立主視窗實例...
+2025-07-28 23:55:11,950 - __main__ - ERROR - 應用程式啟動失敗: 'MainWindow' object has no attribute 'status_bar'
+Traceback (most recent call last):
+  File "/Users/roberthsu2003/Documents/GitHub/__2025_06_29_chihlee_postgres__/practice/taiwan-railway-project/main.py", line 190, in main
+    app = create_main_window()
+  File "/Users/roberthsu2003/Documents/GitHub/__2025_06_29_chihlee_postgres__/practice/taiwan-railway-project/taiwan_railway_gui/gui/main_window.py", line 1205, in create_main_window
+    return MainWindow()
+  File "/Users/roberthsu2003/Documents/GitHub/__2025_06_29_chihlee_postgres__/practice/taiwan-railway-project/taiwan_railway_gui/gui/main_window.py", line 233, in __init__
+    self.setup_main_content()
+  File "/Users/roberthsu2003/Documents/GitHub/__2025_06_29_chihlee_postgres__/practice/taiwan-railway-project/taiwan_railway_gui/gui/main_window.py", line 476, in setup_main_content
+    self.create_placeholder_tabs()
+  File "/Users/roberthsu2003/Documents/GitHub/__2025_06_29_chihlee_postgres__/practice/taiwan-railway-project/taiwan_railway_gui/gui/main_window.py", line 484, in create_placeholder_tabs
+    self.create_station_search_tab()
+  File "/Users/roberthsu2003/Documents/GitHub/__2025_06_29_chihlee_postgres__/practice/taiwan-railway-project/taiwan_railway_gui/gui/main_window.py", line 503, in create_station_search_tab
+    station_search_tab = create_station_search_tab(tab_frame, self)
+  File "/Users/roberthsu2003/Documents/GitHub/__2025_06_29_chihlee_postgres__/practice/taiwan-railway-project/taiwan_railway_gui/gui/station_search_tab.py", line 434, in create_station_search_tab
+    return StationSearchTab(parent, main_window)
+  File "/Users/roberthsu2003/Documents/GitHub/__2025_06_29_chihlee_postgres__/practice/taiwan-railway-project/taiwan_railway_gui/gui/station_search_tab.py", line 42, in __init__
+    super().__init__(parent, main_window)
+  File "/Users/roberthsu2003/Documents/GitHub/__2025_06_29_chihlee_postgres__/practice/taiwan-railway-project/taiwan_railway_gui/gui/base_tab.py", line 69, in __init__
+    self.setup_ui()
+  File "/Users/roberthsu2003/Documents/GitHub/__2025_06_29_chihlee_postgres__/practice/taiwan-railway-project/taiwan_railway_gui/gui/station_search_tab.py", line 52, in setup_ui
+    self.load_initial_stations()
+  File "/Users/roberthsu2003/Documents/GitHub/__2025_06_29_chihlee_postgres__/practice/taiwan-railway-project/taiwan_railway_gui/gui/station_search_tab.py", line 341, in load_initial_stations
+    self.run_async_task(load_task, load_callback, "載入車站清單")
+  File "/Users/roberthsu2003/Documents/GitHub/__2025_06_29_chihlee_postgres__/practice/taiwan-railway-project/taiwan_railway_gui/gui/base_tab.py", line 456, in run_async_task
+    self.main_window.run_async_task(wrapped_task, wrapped_callback, loading_message)
+  File "/Users/roberthsu2003/Documents/GitHub/__2025_06_29_chihlee_postgres__/practice/taiwan-railway-project/taiwan_railway_gui/gui/main_window.py", line 941, in run_async_task
+    self.status_bar.start_loading(loading_message)
+AttributeError: 'MainWindow' object has no attribute 'status_bar'
+2025-07-28 23:55:11,951 - __main__ - INFO - 應用程式結束

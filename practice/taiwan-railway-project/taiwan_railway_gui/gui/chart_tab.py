@@ -9,12 +9,24 @@ from tkinter import ttk, messagebox
 import logging
 from datetime import date, timedelta
 from typing import List, Optional, Dict, Any
-import matplotlib
-matplotlib.use('TkAgg')  # 設定 matplotlib 後端
-import matplotlib.pyplot as plt
-from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg, NavigationToolbar2Tk
-from matplotlib.figure import Figure
-import matplotlib.dates as mdates
+
+# 嘗試導入 matplotlib，如果不可用則設為 None
+try:
+    import matplotlib
+    matplotlib.use('TkAgg')  # 設定 matplotlib 後端
+    import matplotlib.pyplot as plt
+    from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg, NavigationToolbar2Tk
+    from matplotlib.figure import Figure
+    import matplotlib.dates as mdates
+    MATPLOTLIB_AVAILABLE = True
+except ImportError:
+    plt = None
+    FigureCanvasTkAgg = None
+    NavigationToolbar2Tk = None
+    Figure = None
+    mdates = None
+    MATPLOTLIB_AVAILABLE = False
+
 from taiwan_railway_gui.gui.base_tab import BaseTab
 from taiwan_railway_gui.gui.passenger_flow_tab import DatePicker
 from taiwan_railway_gui.models.station import Station
@@ -37,6 +49,11 @@ class ChartCanvas:
         """
         self.parent = parent
 
+        if not MATPLOTLIB_AVAILABLE:
+            # 如果 matplotlib 不可用，顯示訊息
+            self.create_unavailable_message()
+            return
+
         # 建立 matplotlib 圖形
         self.figure = Figure(figsize=(12, 6), dpi=100)
         self.figure.patch.set_facecolor('white')
@@ -57,8 +74,25 @@ class ChartCanvas:
         # 設定中文字體
         self.setup_chinese_font()
 
+    def create_unavailable_message(self):
+        """建立 matplotlib 不可用時的訊息"""
+        frame = ttk.Frame(self.parent)
+        frame.pack(fill=tk.BOTH, expand=True)
+
+        message_label = ttk.Label(
+            frame,
+            text="圖表功能需要 matplotlib 套件\n請安裝 matplotlib: pip install matplotlib",
+            font=("Arial", 14),
+            anchor=tk.CENTER,
+            justify=tk.CENTER
+        )
+        message_label.pack(expand=True)
+
     def setup_chinese_font(self):
         """設定中文字體"""
+        if not MATPLOTLIB_AVAILABLE:
+            return
+
         try:
             # 嘗試設定中文字體
             plt.rcParams['font.sans-serif'] = ['Arial Unicode MS', 'SimHei', 'DejaVu Sans']
@@ -69,6 +103,9 @@ class ChartCanvas:
 
     def clear_chart(self):
         """清除圖表"""
+        if not MATPLOTLIB_AVAILABLE:
+            return
+
         self.figure.clear()
         self.ax = None
         self.canvas.draw()

@@ -6,13 +6,20 @@
 
 import gc
 import logging
-import psutil
 import threading
 import time
 from typing import Dict, Any, List, Optional, Callable
 from dataclasses import dataclass
 from taiwan_railway_gui.services.cache_manager import get_cache_manager
 from taiwan_railway_gui.services.pagination_manager import get_pagination_manager
+
+# 嘗試導入 psutil，如果不存在則設為 None
+try:
+    import psutil
+    PSUTIL_AVAILABLE = True
+except ImportError:
+    psutil = None
+    PSUTIL_AVAILABLE = False
 
 
 @dataclass
@@ -80,6 +87,11 @@ class MemoryManager:
     def get_memory_info(self) -> MemoryInfo:
         """取得目前記憶體資訊"""
         try:
+            if not PSUTIL_AVAILABLE:
+                # 如果 psutil 不可用，返回預設值
+                self.logger.warning("psutil 不可用，返回預設記憶體資訊")
+                return MemoryInfo(0, 0, 0, 0, 0)
+
             # 系統記憶體資訊
             memory = psutil.virtual_memory()
 
@@ -101,6 +113,10 @@ class MemoryManager:
     def start_monitoring(self):
         """開始記憶體監控"""
         if self.monitoring_enabled:
+            return
+
+        if not PSUTIL_AVAILABLE:
+            self.logger.warning("psutil 不可用，跳過記憶體監控")
             return
 
         self.monitoring_enabled = True
