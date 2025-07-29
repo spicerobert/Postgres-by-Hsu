@@ -63,7 +63,7 @@ class DatePicker:
         date_str = simpledialog.askstring(
             "選擇日期",
             "請輸入日期 (YYYY-MM-DD):",
-itialvalue=self.date_var.get()
+            initialvalue=self.date_var.get()
         )
 
         if date_str:
@@ -176,7 +176,7 @@ class PassengerFlowTab(BaseTab):
         date_frame = ttk.Frame(input_frame)
         date_frame.pack(fill=tk.X, pady=(0, 10))
 
-        # 開始日期
+        # 開始日期（先使用預設值，稍後會更新為資料庫實際日期）
         self.start_date_picker = DatePicker(
             date_frame,
             "開始日期:",
@@ -184,7 +184,7 @@ class PassengerFlowTab(BaseTab):
         )
         self.start_date_picker.pack(side=tk.LEFT, padx=(0, 20))
 
-        # 結束日期
+        # 結束日期（先使用預設值，稍後會更新為資料庫實際日期）
         self.end_date_picker = DatePicker(
             date_frame,
             "結束日期:",
@@ -371,10 +371,59 @@ class PassengerFlowTab(BaseTab):
 
             if stations:
                 self.station_combobox.set(station_names[0])  # 預設選擇第一個
+                # 載入預設日期範圍
+                self.load_default_date_range()
 
             self.show_info_message("載入完成", f"已載入 {len(stations)} 個車站")
 
         self.run_async_task(load_task, load_callback, "載入車站清單")
+
+    def load_default_date_range(self):
+        """載入預設的日期範圍（基於資料庫中實際有資料的日期）"""
+        def date_range_task():
+            try:
+                # 使用第一個車站來取得整體的日期範圍
+                if self.stations_list:
+                    first_station = self.stations_list[0]
+                    date_range = self.passenger_flow_dao.get_date_range_available(first_station.station_code)
+                    if date_range:
+                        return date_range
+
+                # 如果第一個車站沒有資料，嘗試其他車站
+                for station in self.stations_list:
+                    date_range = self.passenger_flow_dao.get_date_range_available(station.station_code)
+                    if date_range:
+                        return date_range
+
+                # 如果都沒有資料，返回 None
+                return None
+            except Exception as e:
+                self.logger.error(f"載入日期範圍失敗: {e}")
+                return None
+
+        def date_range_callback(date_range):
+            if date_range:
+                start_date, end_date = date_range
+
+                # 設定預設查詢範圍為最近7天（如果資料足夠）
+                if (end_date - start_date).days >= 7:
+                    default_start = end_date - timedelta(days=6)  # 最近7天
+                    default_end = end_date
+                else:
+                    # 如果資料不足7天，使用全部範圍
+                    default_start = start_date
+                    default_end = end_date
+
+                # 更新日期選擇器
+                self.start_date_picker.set_date(default_start)
+                self.end_date_picker.set_date(default_end)
+
+                self.logger.info(f"已設定預設日期範圍: {default_start} ~ {default_end}")
+            else:
+                self.logger.warning("無法取得資料庫日期範圍，使用預設日期")
+
+        # 非同步載入日期範圍
+        self.run_async_task(date_range_task, date_range_callback, "載入日期範圍")
 
     def get_selected_station_code(self) -> Optional[str]:
         """取得選中的車站代碼"""

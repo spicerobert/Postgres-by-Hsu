@@ -124,3 +124,146 @@ Traceback (most recent call last):
     self.status_bar.start_loading(loading_message)
 AttributeError: 'MainWindow' object has no attribute 'status_bar'
 2025-07-28 23:55:11,951 - __main__ - INFO - 應用程式結束
+2025-07-29 21:32:12,505 - __main__ - INFO - 正在啟動應用程式...
+2025-07-29 21:32:12,691 - __main__ - ERROR - 應用程式啟動失敗: 'MainWindow' object has no attribute 'status_bar'
+2025-07-29 21:38:23,284 - __main__ - INFO - 正在啟動應用程式...
+2025-07-29 21:38:23,419 - taiwan_railway_gui.dao.database_manager - INFO - 正在初始化資料庫連線池...
+2025-07-29 21:38:23,419 - StationSearchTab - INFO - StationSearchTab 初始化完成
+2025-07-29 21:38:23,421 - taiwan_railway_gui.dao.database_manager - INFO - 正在初始化資料庫連線池...
+2025-07-29 21:38:23,421 - PassengerFlowTab - INFO - PassengerFlowTab 初始化完成
+2025-07-29 21:38:23,421 - taiwan_railway_gui.dao.database_manager - INFO - 正在初始化資料庫連線池...
+2025-07-29 21:38:23,422 - ComparisonTab - INFO - ComparisonTab 初始化完成
+2025-07-29 21:38:23,430 - taiwan_railway_gui.dao.database_manager - INFO - 正在初始化資料庫連線池...
+2025-07-29 21:38:23,430 - ChartTab - INFO - ChartTab 初始化完成
+2025-07-29 21:38:23,430 - taiwan_railway_gui.utils.memory_manager - INFO - 記憶體監控已啟動
+2025-07-29 21:38:23,430 - taiwan_railway_gui.gui.main_window - INFO - 效能監控已啟動
+2025-07-29 21:38:23,430 - taiwan_railway_gui.dao.database_manager - INFO - 正在初始化資料庫連線池...
+2025-07-29 21:38:23,430 - taiwan_railway_gui.gui.main_window - INFO - 主視窗初始化完成
+2025-07-29 21:38:23,430 - __main__ - INFO - 應用程式啟動成功
+2025-07-29 21:38:23,430 - taiwan_railway_gui.gui.main_window - INFO - 啟動應用程式主迴圈
+2025-07-29 21:38:23,461 - taiwan_railway_gui.dao.database_manager - INFO - 資料庫連線池初始化成功
+2025-07-29 21:38:23,464 - taiwan_railway_gui.dao.database_manager - INFO - 資料庫連線池初始化成功
+2025-07-29 21:38:23,464 - taiwan_railway_gui.dao.database_manager - ERROR - 資料庫連線池初始化失敗: trying to put unkeyed connection
+2025-07-29 21:38:23,464 - taiwan_railway_gui.dao.database_manager - INFO - 資料庫連線池初始化成功
+2025-07-29 21:38:23,465 - taiwan_railway_gui.dao.database_manager - WARNING - 查詢執行失敗 (嘗試 1/3): 無法取得資料庫連線
+2025-07-29 21:38:23,465 - taiwan_railway_gui.dao.database_manager - INFO - 資料庫連線池初始化成功
+2025-07-29 21:38:23,475 - taiwan_railway_gui.dao.database_manager - ERROR - 歸還資料庫連線失敗: trying to put unkeyed connection
+2025-07-29 21:38:23,476 - taiwan_railway_gui.dao.station_dao - INFO - 取得 15 個車站
+2025-07-29 21:38:23,476 - taiwan_railway_gui.dao.database_manager - ERROR - 歸還資料庫連線失敗: trying to put unkeyed connection
+2025-07-29 21:38:23,476 - taiwan_railway_gui.dao.database_manager - ERROR - 歸還資料庫連線失敗: trying to put unkeyed connection
+2025-07-29 21:38:23,477 - taiwan_railway_gui.dao.station_dao - INFO - 取得 15 個車站
+2025-07-29 21:38:23,477 - taiwan_railway_gui.dao.station_dao - INFO - 取得 15 個車站
+2025-07-29 21:38:23,477 - ComparisonTab - INFO - 載入完成: 已載入 15 個車站
+2025-07-29 21:38:24,470 - taiwan_railway_gui.dao.database_manager - INFO - 連線池已存在，跳過初始化
+2025-07-29 21:38:24,475 - taiwan_railway_gui.dao.station_dao - INFO - 取得 15 個車站
+2025-07-29 21:38:26,358 - ChartTab - INFO - 載入完成: 已載入 15 個車站
+2025-07-29 21:38:27,138 - PassengerFlowTab - INFO - 載入完成: 已載入 15 個車站
+2025-07-29 21:38:43,675 - StationSearchTab - INFO - 顯示車站詳細資訊: 台中
+2025-07-29 21:38:50,692 - StationSearchTab - INFO - 切換分頁: 已切換到客流量查詢，車站: 台中
+2025-07-29 21:39:04,148 - PassengerFlowTab - ERROR - 日期錯誤: 未知的驗證類型: validate_date_range
+2025-07-29 21:39:09,685 - PassengerFlowTab - ERROR - 日期錯誤: 未知的驗證類型: validate_date_range
+2025-07-29 21:39:17,281 - taiwan_railway_gui.dao.database_manager - INFO - 連線池已存在，跳過初始化
+2025-07-29 21:39:17,285 - taiwan_railway_gui.dao.station_dao - INFO - 取得 15 個車站
+2025-07-29 21:39:17,294 - PassengerFlowTab - INFO - 載入完成: 已載入 15 個車站
+2025-07-29 21:39:23,210 - PassengerFlowTab - ERROR - 日期錯誤: 未知的驗證類型: validate_date_range
+2025-07-29 21:39:38,380 - ComparisonTab - ERROR - 日期錯誤: 未知的驗證類型: validate_date_range
+2025-07-29 21:39:54,742 - taiwan_railway_gui.dao.database_manager - INFO - 連線池已存在，跳過初始化
+2025-07-29 21:39:54,748 - taiwan_railway_gui.dao.station_dao - INFO - 搜尋查詢 'uoo' 沒有找到結果
+2025-07-29 21:39:54,757 - StationSearchTab - INFO - 搜尋結果: 沒有找到匹配的車站
+2025-07-29 21:40:00,018 - taiwan_railway_gui.dao.database_manager - INFO - 連線池已存在，跳過初始化
+2025-07-29 21:40:00,022 - taiwan_railway_gui.dao.station_dao - INFO - 搜尋查詢 'uo' 沒有找到結果
+2025-07-29 21:40:00,028 - StationSearchTab - INFO - 搜尋結果: 沒有找到匹配的車站
+2025-07-29 21:40:04,591 - taiwan_railway_gui.dao.database_manager - INFO - 連線池已存在，跳過初始化
+2025-07-29 21:40:04,597 - taiwan_railway_gui.dao.station_dao - INFO - 搜尋查詢 'uo' 沒有找到結果
+2025-07-29 21:40:04,606 - StationSearchTab - INFO - 搜尋結果: 沒有找到匹配的車站
+2025-07-29 21:40:07,939 - taiwan_railway_gui.dao.database_manager - INFO - 連線池已存在，跳過初始化
+2025-07-29 21:40:07,941 - taiwan_railway_gui.dao.station_dao - INFO - 搜尋查詢 'u' 沒有找到結果
+2025-07-29 21:40:07,946 - StationSearchTab - INFO - 搜尋結果: 沒有找到匹配的車站
+2025-07-29 21:40:11,449 - taiwan_railway_gui.dao.database_manager - INFO - 連線池已存在，跳過初始化
+2025-07-29 21:40:11,454 - taiwan_railway_gui.dao.station_dao - INFO - 取得 15 個車站
+2025-07-29 21:40:11,463 - StationSearchTab - INFO - 搜尋完成: 找到 15 個車站
+2025-07-29 21:40:13,758 - taiwan_railway_gui.dao.database_manager - INFO - 連線池已存在，跳過初始化
+2025-07-29 21:40:13,764 - taiwan_railway_gui.dao.station_dao - INFO - 取得 15 個車站
+2025-07-29 21:40:13,773 - StationSearchTab - INFO - 搜尋完成: 找到 15 個車站
+2025-07-29 21:40:17,640 - StationSearchTab - INFO - 顯示車站詳細資訊: 三坑
+2025-07-29 21:40:21,243 - StationSearchTab - INFO - 切換分頁: 已切換到客流量查詢，車站: 三坑
+2025-07-29 21:40:27,747 - StationSearchTab - INFO - 切換分頁: 已切換到客流量查詢，車站: 三坑
+2025-07-29 21:40:43,925 - PassengerFlowTab - ERROR - 日期錯誤: 未知的驗證類型: validate_date_range
+2025-07-29 21:40:49,773 - PassengerFlowTab - INFO - 查詢結果已清除
+2025-07-29 21:40:50,976 - PassengerFlowTab - ERROR - 日期錯誤: 未知的驗證類型: validate_date_range
+2025-07-29 21:56:03,090 - __main__ - INFO - 正在啟動應用程式...
+2025-07-29 21:56:03,218 - taiwan_railway_gui.dao.database_manager - INFO - 正在初始化資料庫連線池...
+2025-07-29 21:56:03,218 - StationSearchTab - INFO - StationSearchTab 初始化完成
+2025-07-29 21:56:03,220 - taiwan_railway_gui.dao.database_manager - INFO - 正在初始化資料庫連線池...
+2025-07-29 21:56:03,220 - PassengerFlowTab - INFO - PassengerFlowTab 初始化完成
+2025-07-29 21:56:03,221 - taiwan_railway_gui.dao.database_manager - INFO - 正在初始化資料庫連線池...
+2025-07-29 21:56:03,221 - ComparisonTab - INFO - ComparisonTab 初始化完成
+2025-07-29 21:56:03,229 - taiwan_railway_gui.dao.database_manager - INFO - 正在初始化資料庫連線池...
+2025-07-29 21:56:03,229 - ChartTab - INFO - ChartTab 初始化完成
+2025-07-29 21:56:03,230 - taiwan_railway_gui.utils.memory_manager - INFO - 記憶體監控已啟動
+2025-07-29 21:56:03,230 - taiwan_railway_gui.gui.main_window - INFO - 效能監控已啟動
+2025-07-29 21:56:03,230 - taiwan_railway_gui.dao.database_manager - INFO - 正在初始化資料庫連線池...
+2025-07-29 21:56:03,230 - taiwan_railway_gui.gui.main_window - INFO - 主視窗初始化完成
+2025-07-29 21:56:03,230 - __main__ - INFO - 應用程式啟動成功
+2025-07-29 21:56:03,230 - taiwan_railway_gui.gui.main_window - INFO - 啟動應用程式主迴圈
+2025-07-29 21:56:03,269 - taiwan_railway_gui.dao.database_manager - INFO - 資料庫連線池初始化成功
+2025-07-29 21:56:03,270 - taiwan_railway_gui.dao.database_manager - INFO - 資料庫連線池初始化成功
+2025-07-29 21:56:03,271 - taiwan_railway_gui.dao.database_manager - INFO - 資料庫連線池初始化成功
+2025-07-29 21:56:03,271 - taiwan_railway_gui.dao.database_manager - INFO - 資料庫連線池初始化成功
+2025-07-29 21:56:03,292 - taiwan_railway_gui.dao.database_manager - INFO - 資料庫連線池初始化成功
+2025-07-29 21:56:03,298 - taiwan_railway_gui.dao.database_manager - ERROR - 歸還資料庫連線失敗: trying to put unkeyed connection
+2025-07-29 21:56:03,298 - taiwan_railway_gui.dao.database_manager - ERROR - 歸還資料庫連線失敗: trying to put unkeyed connection
+2025-07-29 21:56:03,298 - taiwan_railway_gui.dao.database_manager - ERROR - 歸還資料庫連線失敗: trying to put unkeyed connection
+2025-07-29 21:56:03,298 - taiwan_railway_gui.dao.station_dao - INFO - 取得 15 個車站
+2025-07-29 21:56:03,298 - taiwan_railway_gui.dao.station_dao - INFO - 取得 15 個車站
+2025-07-29 21:56:03,299 - taiwan_railway_gui.dao.station_dao - INFO - 取得 15 個車站
+2025-07-29 21:56:03,299 - taiwan_railway_gui.dao.station_dao - INFO - 取得 15 個車站
+2025-07-29 21:56:03,299 - ChartTab - INFO - 載入完成: 已載入 15 個車站
+2025-07-29 21:56:05,989 - ComparisonTab - INFO - 載入完成: 已載入 15 個車站
+2025-07-29 21:56:06,808 - PassengerFlowTab - INFO - 載入完成: 已載入 15 個車站
+2025-07-29 21:56:10,326 - StationSearchTab - INFO - 顯示車站詳細資訊: 台北
+2025-07-29 21:56:12,921 - StationSearchTab - INFO - 切換分頁: 已切換到客流量查詢，車站: 台北
+2025-07-29 21:56:21,117 - PassengerFlowTab - ERROR - 日期錯誤: 未知的驗證類型: validate_date_range
+2025-07-29 21:57:08,871 - PassengerFlowTab - ERROR - 日期錯誤: 未知的驗證類型: validate_date_range
+2025-07-29 21:57:16,434 - PassengerFlowTab - ERROR - 日期錯誤: 未知的驗證類型: validate_date_range
+2025-07-29 22:04:26,636 - __main__ - INFO - 正在啟動應用程式...
+2025-07-29 22:04:26,773 - taiwan_railway_gui.dao.database_manager - INFO - 正在初始化資料庫連線池...
+2025-07-29 22:04:26,773 - StationSearchTab - INFO - StationSearchTab 初始化完成
+2025-07-29 22:04:26,775 - taiwan_railway_gui.dao.database_manager - INFO - 正在初始化資料庫連線池...
+2025-07-29 22:04:26,775 - PassengerFlowTab - INFO - PassengerFlowTab 初始化完成
+2025-07-29 22:04:26,776 - taiwan_railway_gui.dao.database_manager - INFO - 正在初始化資料庫連線池...
+2025-07-29 22:04:26,776 - ComparisonTab - INFO - ComparisonTab 初始化完成
+2025-07-29 22:04:26,784 - taiwan_railway_gui.dao.database_manager - INFO - 正在初始化資料庫連線池...
+2025-07-29 22:04:26,784 - ChartTab - INFO - ChartTab 初始化完成
+2025-07-29 22:04:26,785 - taiwan_railway_gui.utils.memory_manager - INFO - 記憶體監控已啟動
+2025-07-29 22:04:26,785 - taiwan_railway_gui.gui.main_window - INFO - 效能監控已啟動
+2025-07-29 22:04:26,785 - taiwan_railway_gui.dao.database_manager - INFO - 正在初始化資料庫連線池...
+2025-07-29 22:04:26,785 - taiwan_railway_gui.gui.main_window - INFO - 主視窗初始化完成
+2025-07-29 22:04:26,785 - __main__ - INFO - 應用程式啟動成功
+2025-07-29 22:04:26,785 - taiwan_railway_gui.gui.main_window - INFO - 啟動應用程式主迴圈
+2025-07-29 22:04:26,819 - taiwan_railway_gui.dao.database_manager - INFO - 資料庫連線池初始化成功
+2025-07-29 22:04:26,821 - taiwan_railway_gui.dao.database_manager - INFO - 資料庫連線池初始化成功
+2025-07-29 22:04:26,822 - taiwan_railway_gui.dao.database_manager - INFO - 資料庫連線池初始化成功
+2025-07-29 22:04:26,822 - taiwan_railway_gui.dao.database_manager - INFO - 資料庫連線池初始化成功
+2025-07-29 22:04:26,822 - taiwan_railway_gui.dao.database_manager - INFO - 資料庫連線池初始化成功
+2025-07-29 22:04:26,849 - taiwan_railway_gui.dao.database_manager - ERROR - 歸還資料庫連線失敗: trying to put unkeyed connection
+2025-07-29 22:04:26,850 - taiwan_railway_gui.dao.database_manager - ERROR - 歸還資料庫連線失敗: trying to put unkeyed connection
+2025-07-29 22:04:26,851 - taiwan_railway_gui.dao.database_manager - ERROR - 歸還資料庫連線失敗: trying to put unkeyed connection
+2025-07-29 22:04:26,851 - taiwan_railway_gui.dao.station_dao - INFO - 取得 15 個車站
+2025-07-29 22:04:26,851 - taiwan_railway_gui.dao.station_dao - INFO - 取得 15 個車站
+2025-07-29 22:04:26,852 - taiwan_railway_gui.dao.station_dao - INFO - 取得 15 個車站
+2025-07-29 22:04:26,852 - taiwan_railway_gui.dao.database_manager - ERROR - 歸還資料庫連線失敗: trying to put unkeyed connection
+2025-07-29 22:04:26,852 - taiwan_railway_gui.dao.station_dao - INFO - 取得 15 個車站
+2025-07-29 22:04:26,857 - PassengerFlowTab - INFO - 載入完成: 已載入 15 個車站
+2025-07-29 22:04:29,655 - ChartTab - INFO - 載入完成: 已載入 15 個車站
+2025-07-29 22:04:30,444 - ComparisonTab - INFO - 載入完成: 已載入 15 個車站
+2025-07-29 22:04:31,261 - PassengerFlowTab - INFO - 已設定預設日期範圍: 2025-07-21 ~ 2025-07-27
+2025-07-29 22:04:32,611 - StationSearchTab - INFO - 顯示車站詳細資訊: 台北
+2025-07-29 22:04:35,538 - StationSearchTab - INFO - 切換分頁: 已切換到客流量查詢，車站: 台北
+2025-07-29 22:05:11,196 - PassengerFlowTab - ERROR - 日期錯誤: 未知的驗證類型: validate_date_range
+2025-07-29 22:05:33,903 - taiwan_railway_gui.utils.memory_manager - INFO - 記憶體監控已停止
+2025-07-29 22:05:33,904 - taiwan_railway_gui.services.async_manager - INFO - 正在關閉非同步管理器...
+2025-07-29 22:05:33,904 - taiwan_railway_gui.services.async_manager - INFO - 非同步管理器已關閉
+2025-07-29 22:05:33,904 - taiwan_railway_gui.services.cache_manager - INFO - 快取已清除
+2025-07-29 22:05:33,905 - taiwan_railway_gui.dao.database_manager - INFO - 資料庫連線池已關閉
+2025-07-29 22:05:33,905 - taiwan_railway_gui.gui.main_window - INFO - 應用程式正常關閉

@@ -229,14 +229,14 @@ class MainWindow:
         # 建立選單列
         self.setup_menu()
 
-        # 建立主要內容區域
-        self.setup_main_content()
-
-        # 分頁字典（將在後續任務中填充）
+        # 初始化分頁字典
         self.tabs = {}
 
-        # 建立狀態列
+        # 建立狀態列（必須在主要內容之前建立）
         self.setup_status_bar()
+
+        # 建立主要內容區域
+        self.setup_main_content()
 
         # 初始化服務
         self.db_manager = get_database_manager()
@@ -563,7 +563,7 @@ class MainWindow:
     def setup_status_bar(self):
         """建立狀態列"""
         self.status_bar = StatusBar(self.root)
-        self.status_bar.pack(side=tk.BOTTOM, fill=tk.X)
+        self.status_bar.frame.pack(side=tk.BOTTOM, fill=tk.X)
 
     def check_database_connection(self):
         """檢查資料庫連線"""
