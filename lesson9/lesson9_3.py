@@ -1,11 +1,5 @@
 import psycopg2
 
-#請幫我建立一個function
-#傳入connection參數
-#建立一個cursor
-#執行SQL查詢
-#並回傳查詢結果
-
 def execute_query(connection, query):
     cursor = connection.cursor()
     cursor.execute(query)
