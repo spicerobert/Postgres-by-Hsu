@@ -1,7 +1,7 @@
-import source
+import datasource
 
 def main():
-    results = source.get_stations_names()
+    results = datasource.get_stations_names()
     if results:
         for station in results:
             print(station)
