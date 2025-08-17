@@ -10,6 +10,11 @@ def get_stations():
     """取得車站資料"""
     return datasource.get_stations_names()
 
+@st.cache_data
+def get_date_range():
+    """取得日期範圍"""
+    return datasource.get_min_and_max_date()
+
 stations = get_stations()
 if stations is None:
     st.error("無法取得車站資料，請稍後再試。")
@@ -28,5 +33,11 @@ if choice == "其它":
 else:
     station = choice
 
+date_range = get_date_range()
+if date_range is None:
+    st.error("無法取得日期範圍，請稍後再試。")
+    st.stop()
+
 st.write("您選擇的車站:", station)
+st.write("日期範圍:", date_range[0], "至", date_range[1])
 
