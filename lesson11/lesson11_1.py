@@ -63,7 +63,14 @@ if isinstance(selected_dates, tuple) and len(selected_dates) == 2:
 else:
     start_date = end_date = selected_dates
 
+# 請使用datasource.get_station_data_by_date 函數取得資料,並顯示資料
 st.write("您選擇的車站:", station)
 st.write("日期範圍:", start_date, "至", end_date)
-st.write("日期範圍:", date_range[0], "至", date_range[1])
 
+data = datasource.get_station_data_by_date(station, start_date, end_date)
+if data is None:
+    st.error("無法取得車站資料，請稍後再試。")
+else:
+    st.write("進出站人數資料:")
+    for row in data:
+        st.write(row)
