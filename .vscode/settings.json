@@ -1,5 +1,5 @@
 {
-    "chat.mcp.discovery.enabled": true,
+    "chat.mcp.discovery.enabled": false,
     // --- Suggested Settings for better code quality ---
     // Automatically save files after a delay.
     "files.autoSave": "afterDelay",
@@ -8,5 +8,4 @@
     // Trim trailing whitespace when saving a file.
     "files.trimTrailingWhitespace": true,
     // GitHub Copilot settings
-   
 }
