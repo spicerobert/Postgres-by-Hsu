@@ -67,10 +67,40 @@ else:
 st.write("您選擇的車站:", station)
 st.write("日期範圍:", start_date, "至", end_date)
 
+import pandas as pd
+
 data = datasource.get_station_data_by_date(station, start_date, end_date)
 if data is None:
     st.error("無法取得車站資料，請稍後再試。")
 else:
-    st.write("進出站人數資料:")
-    for row in data:
-        st.write(row)
+    try:
+        # 若已經是 DataFrame，直接使用；否則嘗試轉成 DataFrame
+        if isinstance(data, pd.DataFrame):
+            df = data
+        else:
+            df = pd.DataFrame(data)
+    except Exception:
+        # 如果直接轉換失敗，嘗試先將資料轉為 list（支援 generator 等）
+        try:
+            df = pd.DataFrame(list(data))
+        except Exception as e:
+            st.error(f"處理資料時發生錯誤: {e}")
+            df = None
+
+    if df is None or df.empty:
+        st.info("查無資料。")
+    else:
+        st.write("進出站人數資料:")
+        st.dataframe(df)
+        # 提供下載 CSV 的按鈕
+        try:
+            csv = df.to_csv(index=False).encode("utf-8-sig")
+            st.download_button(
+                "下載 CSV",
+                data=csv,
+                file_name=f"{station}_{start_date}_{end_date}.csv",
+                mime="text/csv",
+            )
+        except Exception:
+            # 若無 download_button（非常舊版 streamlit），則忽略下載功能
+            pass
