@@ -77,7 +77,22 @@ st.write("日期範圍:", start_date, "至", end_date)
 
 def plot_entry_exit_chart(df, station_name):
     """
-    繪製進站人數與出站人數比較圖
+    繪製指定車站在給定日期範圍內的進出站人數比較圖。
+
+    參數:
+      df (pandas.DataFrame): 包含至少三個欄位的資料表，建議欄位名稱為
+                             "日期"、"進站人數"、"出站人數"（"車站" 為選填）。
+                             若欄位名稱不同，函式會嘗試以位置索引取出第 2 與第 3 欄作為進/出人數。
+                             若存在 "日期" 欄位，會自動轉為 datetime 並依日期排序。
+      station_name (str): 圖表標題中顯示的車站名稱。
+
+    回傳:
+      matplotlib.figure.Figure: 已繪製完成的圖表物件，呼叫端可用於顯示 (例如 st.pyplot) 或儲存。
+    
+    行為與注意事項:
+      - 若有 "日期" 欄位，x 軸以日期呈現並旋轉標籤以利閱讀；否則以索引呈現。
+      - 會繪製進站與出站兩條折線，並以填色區分進出人數較多的區域。
+      - 函式僅回傳 Figure，不會直接處理 Streamlit 的顯示或資源釋放，呼叫端需負責 st.pyplot() 與 plt.close()。
     """
     # 確保日期欄位為 datetime 格式
     if '日期' in df.columns:
