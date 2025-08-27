@@ -4,7 +4,7 @@ import datasource
 import pandas as pd
 import matplotlib.pyplot as plt
 import seaborn as sns
-import numpy as np
+
 
 # 設定 matplotlib 字型
 plt.rcParams['font.family'] = ['DejaVu Sans']
