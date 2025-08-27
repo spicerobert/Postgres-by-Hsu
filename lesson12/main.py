@@ -4,7 +4,7 @@ import datasource
 import pandas as pd
 import matplotlib.pyplot as plt
 import seaborn as sns
-
+import numpy as np
 
 # 設定 matplotlib 字型
 plt.rcParams['font.family'] = ['DejaVu Sans']
@@ -88,7 +88,7 @@ def plot_entry_exit_chart(df, station_name):
 
     回傳:
       matplotlib.figure.Figure: 已繪製完成的圖表物件，呼叫端可用於顯示 (例如 st.pyplot) 或儲存。
-    
+
     行為與注意事項:
       - 若有 "日期" 欄位，x 軸以日期呈現並旋轉標籤以利閱讀；否則以索引呈現。
       - 會繪製進站與出站兩條折線，並以填色區分進出人數較多的區域。
@@ -98,42 +98,42 @@ def plot_entry_exit_chart(df, station_name):
     if '日期' in df.columns:
         df['日期'] = pd.to_datetime(df['日期'])
         df = df.sort_values('日期')
-    
+
     # 設定圖表樣式
     sns.set_style("whitegrid")
     fig, ax = plt.subplots(figsize=(12, 6))
-    
+
     # 繪製進站和出站人數
     x = df['日期'] if '日期' in df.columns else range(len(df))
     entry_data = df['進站人數'] if '進站人數' in df.columns else df.iloc[:, 2]
     exit_data = df['出站人數'] if '出站人數' in df.columns else df.iloc[:, 3]
-    
+
     ax.plot(x, entry_data, label='Entry Count', color='#1f77b4', linewidth=2, marker='o', markersize=4)
     ax.plot(x, exit_data, label='Exit Count', color='#ff7f0e', linewidth=2, marker='s', markersize=4)
-    
+
     # 添加填充區域以顯示差異
-    ax.fill_between(x, entry_data, exit_data, 
+    ax.fill_between(x, entry_data, exit_data,
                     where=(entry_data >= exit_data),
                     interpolate=True, color='#1f77b4', alpha=0.1)
-    ax.fill_between(x, entry_data, exit_data, 
+    ax.fill_between(x, entry_data, exit_data,
                     where=(entry_data < exit_data),
                     interpolate=True, color='#ff7f0e', alpha=0.1)
-    
+
     # 設定圖表標題和標籤
     ax.set_title(f'{station_name} Entry vs Exit Count Comparison', fontsize=16, fontweight='bold')
     ax.set_xlabel('Date', fontsize=12)
     ax.set_ylabel('Count', fontsize=12)
-    
+
     # 設定圖例
     ax.legend(loc='upper right')
-    
+
     # 格式化 x 軸日期顯示
     if '日期' in df.columns:
         plt.xticks(rotation=45)
-    
+
     # 調整布局
     plt.tight_layout()
-    
+
     return fig
 
 data = datasource.get_station_data_by_date(station, start_date, end_date)
@@ -175,7 +175,7 @@ else:
     else:
         st.write("進出站人數資料:")
         st.dataframe(df)
-        
+
         # 顯示圖表
         if len(df) > 0:
             st.subheader("📊 Entry vs Exit Count Comparison Chart")
@@ -183,30 +183,30 @@ else:
                 fig = plot_entry_exit_chart(df, station)
                 st.pyplot(fig)
                 plt.close(fig)  # 釋放記憶體
-                
+
                 # 顯示統計摘要
                 col1, col2, col3 = st.columns(3)
-                
+
                 entry_col = '進站人數' if '進站人數' in df.columns else df.columns[2]
                 exit_col = '出站人數' if '出站人數' in df.columns else df.columns[3]
-                
+
                 with col1:
                     st.metric("Average Entry Count", f"{df[entry_col].mean():.0f}")
                     st.metric("Maximum Entry Count", f"{df[entry_col].max():.0f}")
-                
+
                 with col2:
                     st.metric("Average Exit Count", f"{df[exit_col].mean():.0f}")
                     st.metric("Maximum Exit Count", f"{df[exit_col].max():.0f}")
-                
+
                 with col3:
                     total_entry = df[entry_col].sum()
                     total_exit = df[exit_col].sum()
                     st.metric("Total Entry Count", f"{total_entry:,.0f}")
                     st.metric("Total Exit Count", f"{total_exit:,.0f}")
-                    
+
             except Exception as e:
                 st.error(f"繪製圖表時發生錯誤: {e}")
-        
+
         # 提供下載 CSV 的按鈕
         try:
             csv = df.to_csv(index=False).encode("utf-8-sig")
